@@ -85,7 +85,7 @@
 
   /* news */
   .news { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-  .news li { display: grid; grid-template-columns: 92px 1fr; gap: var(--space-3); }
+  .news li { display: grid; grid-template-columns: 96px 1fr; gap: var(--space-3); }
   .news time { font: 500 14px/1.65 var(--font-heading); color: var(--color-muted-foreground); font-variant-numeric: tabular-nums; }
 
   /* cards */
@@ -129,6 +129,16 @@
   .pub-fig img { display: block; width: 100%; height: auto; }
   @media (max-width: 860px) { .pub { grid-template-columns: 1fr; } }
 
+  .contact { margin: var(--space-3) 0 0; font-size: 15px; line-height: 1.7; color: var(--color-secondary); }
+  #about .bio + .bio { margin-top: var(--space-3); }
+  .interest-list { margin: var(--space-2) 0 0; padding-left: 1.2em; font-size: 17px; }
+  .interest-list li + li { margin-top: 4px; }
+  .interest-list li::marker { color: var(--color-muted-foreground); }
+  .muted { color: var(--color-muted-foreground); font-size: 15px; }
+  .badge { display: inline-block; vertical-align: 2px; margin-right: 6px; font: 600 12px/1 var(--font-heading); letter-spacing: .02em; color: #fff; background: var(--color-primary); padding: 5px 7px; border-radius: 5px; white-space: nowrap; }
+  .venue-full { margin: 4px 0 0; font-size: 14px; font-style: italic; color: var(--color-muted-foreground); }
+  .summary b { font-weight: 600; }
+
   footer { max-width: 960px; margin: 0 auto; padding: var(--space-4) var(--space-3) var(--space-5); border-top: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted-foreground); }
 
   @media (prefers-reduced-motion: reduce) {
@@ -154,7 +164,9 @@
   <nav class="nav-inner" aria-label="Primary">
     <a class="brand" href="#top">Yanjin Li</a>
     <ul>
-      <li><a href="#news">News</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#milestones">Milestones</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -167,20 +179,10 @@
     <div>
       <h1 id="name">Yanjin Li</h1>
       <p class="role">Undergraduate student at UIUC</p>
+      <p class="contact">Department of Mathematics, University of Illinois Urbana-Champaign, Urbana, IL<br>
+        Email: <a href="mailto:yanjin2@illinois.edu">yanjin2@illinois.edu</a></p>
     </div>
-    <p class="bio">I am a senior at UIUC. I work on efficient ML, ML systems, 3D Perception and LLM Agents.<br>
-      I am applying to graduate programs for Fall 2027.</p>
-    <ul class="interests" aria-label="Research interests">
-      <li>Sparse attention</li>
-      <li>Video diffusion</li>
-      <li>Neural rendering</li>
-      <li>Agent workflows</li>
-      <li>ML systems</li>
-    </ul>
     <ul class="links">
-      <li><a class="btn" href="mailto:yanjin2@illinois.edu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        yanjin2@illinois.edu</a></li>
       <li><a class="btn" href="https://github.com/YJLi-new">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
         GitHub</a></li>
@@ -193,13 +195,41 @@
     </ul>
   </section>
 
-  <section id="news" aria-labelledby="news-h">
-    <h2 id="news-h">News</h2>
+  <section id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About Me</h2>
+    <p class="bio">I am a senior at UIUC. I work on efficient ML, ML systems, 3D Perception and LLM Agents.<br>
+      I am applying to graduate programs for Fall 2027.</p>
+    <p class="bio">I currently work with Mingda Zhang in Prof. Xiaoying Tang's group at CUHK-Shenzhen. I am also a co-developer of <a href="https://github.com/beita6969/ScienceClaw">ScienceClaw</a>, an open-source agent framework for science with 1k+ GitHub stars.</p>
+    <p class="bio">My research interests include:</p>
+    <ul class="interest-list">
+      <li><b>Efficient ML:</b> training-free sparse attention for video diffusion transformers</li>
+      <li><b>ML systems:</b> fused GPU attention kernels, and rollout&ndash;training overlap for agent RL</li>
+      <li><b>3D Perception:</b> open-vocabulary 3D detection and neural rendering</li>
+      <li><b>LLM Agents:</b> agents that evolve and verify their own skills</li>
+    </ul>
+  </section>
+
+  <section id="milestones" aria-labelledby="ms-h">
+    <h2 id="ms-h">Milestones</h2>
     <ul class="news">
-      <li><time datetime="2026-11">Nov 2026</time><span><a href="https://www.alphaxiv.org/abs/2611.decoupattn-sparse-attention">DecoupAttn</a> is out on alphaXiv and submitted to CVPR 2027.</span></li>
-      <li><time datetime="2026-10">Oct 2026</time><span><a href="https://github.com/beita6969/ScienceClaw">ScienceClaw</a> passed 1,000 GitHub stars. <a href="https://arxiv.org/abs/2610.22740">R&sup2;Orch</a> is on arXiv.</span></li>
-      <li><time datetime="2026-09">Sep 2026</time><span><a href="https://arxiv.org/abs/2609.33867">R&sup2; Flow</a> is on arXiv and under review at ICLR 2027.</span></li>
-      <li><time datetime="2026-04">Apr 2026</time><span>Joined T-Lab at CUHK-Shenzhen as a research intern.</span></li>
+      <li><time datetime="2026-11">2026/11</time><span>My first-author paper <a href="https://www.alphaxiv.org/abs/2611.decoupattn-sparse-attention">DecoupAttn</a> is out on alphaXiv and submitted to CVPR 2027.</span></li>
+      <li><time datetime="2026-11">2026/11</time><span>I released <a href="https://github.com/YJLi-new/AndroidClaw">AndroidClaw</a> v0.3.0, adding photos in chat, web search, image and video generation, and voice.</span></li>
+      <li><time datetime="2026-10">2026/10</time><span><a href="https://arxiv.org/abs/2610.22740">R&sup2;Orch</a> is on arXiv and under review at ACL Rolling Review.</span></li>
+      <li><time datetime="2026-10">2026/10</time><span><a href="https://github.com/beita6969/ScienceClaw">ScienceClaw</a> passed 1,000 GitHub stars.</span></li>
+      <li><time datetime="2026-09">2026/09</time><span><a href="https://arxiv.org/abs/2609.33867">R&sup2; Flow</a> is on arXiv and under review at ICLR 2027.</span></li>
+      <li><time datetime="2026-04">2026/04</time><span>I joined T-Lab at CUHK-Shenzhen as a research intern.</span></li>
+      <li><time datetime="2026-03">2026/03</time><span>I started AndroidClaw, an Android-native AI assistant host.</span></li>
+      <li><time datetime="2025-09">2025/09</time><span>I joined the Intelligent Connected Vehicles Research Group at Tsinghua University as a research intern.</span></li>
+      <li><time datetime="2024-09">2024/09</time><span>I started my B.S. in Mathematics at UIUC.</span></li>
+      <li><time datetime="2024-06">2024/06</time><span>I joined Prof. Kun Xu's Graphics and Geometry Computing Group at Tsinghua University as a research intern.</span></li>
+    </ul>
+  </section>
+
+  <section id="education" aria-labelledby="edu-h">
+    <h2 id="edu-h">Education</h2>
+    <ul class="news">
+      <li><time>2024&ndash;2027</time><span><b>B.S. in Mathematics, Minor in Computer Science</b><br>
+        <span class="muted">University of Illinois Urbana-Champaign, Urbana, IL</span></span></li>
     </ul>
   </section>
 
@@ -208,12 +238,11 @@
     <div class="list">
       <article class="card pub">
         <div>
-          <h3>DecoupAttn: Decoupled Sparse Attention for Training-Free Acceleration of Video Diffusion</h3>
+          <h3><span class="badge">CVPR 2027</span> DecoupAttn: Decoupled Sparse Attention for Training-Free Acceleration of Video Diffusion</h3>
           <p class="authors"><b>Yanjin Li</b>, Bingbing Qiu, Qiang Huang, Rui Qian, Jian Wang, Mingda Zhang</p>
-          <p class="summary">Semantic clusters compensate every key, and exact attention corrects their error on blocks fixed offline. Best PSNR on 9 of 10 video-generation, controlled-generation, and neural-rendering models, and up to 1.65&times; faster than dense attention.</p>
+          <p class="venue-full">Submitted to the IEEE/CVF Conference on Computer Vision and Pattern Recognition 2027</p>
+          <p class="summary"><b>TL;DR:</b> Semantic clusters compensate every key, and exact attention corrects their error on blocks fixed offline. Best PSNR on 9 of 10 video-generation, controlled-generation, and neural-rendering models, and up to 1.65&times; faster than dense attention.</p>
           <div class="meta">
-            <span class="tag">First author</span>
-            <span class="venue">In submission to CVPR 2027</span>
             <a class="pill" href="https://www.alphaxiv.org/abs/2611.decoupattn-sparse-attention">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
               alphaXiv</a>
@@ -223,11 +252,11 @@
       </article>
       <article class="card pub">
         <div>
-          <h3>R&sup2; Flow: Recursive Self-Improvement via Recursive Skill Evolution</h3>
+          <h3><span class="badge">ICLR 2027</span> R&sup2; Flow: Recursive Self-Improvement via Recursive Skill Evolution</h3>
           <p class="authors">Mingda Zhang, Qiang Huang, <b>Yanjin Li</b>, Zijia Wang, Qika Lin, Xiaoying Tang, Tiesunlong Shen</p>
-          <p class="summary">Joins policy learning and skill updates in LLM agents through flow-based training and verified skill updates. State of the art on all 12 benchmarks.</p>
+          <p class="venue-full">Under review at the International Conference on Learning Representations 2027</p>
+          <p class="summary"><b>TL;DR:</b> Joins policy learning and skill updates in LLM agents through flow-based training and verified skill updates. State of the art on all 12 benchmarks.</p>
           <div class="meta">
-            <span class="venue">Under review at ICLR 2027</span>
             <a class="pill" href="https://arxiv.org/abs/2609.33867">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
               arXiv:2609.33867</a>
@@ -237,11 +266,11 @@
       </article>
       <article class="card pub">
         <div>
-          <h3>R&sup2;Orch: Recursive Self-Improvement for Agent Orchestration via Self-Play within a Skill-Internalization Loop</h3>
+          <h3><span class="badge">ARR</span> R&sup2;Orch: Recursive Self-Improvement for Agent Orchestration via Self-Play within a Skill-Internalization Loop</h3>
           <p class="authors">Mingda Zhang, Yun Huang, Qiang Huang, <b>Yanjin Li</b>, Rui Qian, Qichao Zhao, Tiesunlong Shen, Na Zhao, Jian Wang, Xiaoying Tang</p>
-          <p class="summary">Nested self-play loops let orchestration agents internalize skills, then withdraw them for zero-skill deployment.</p>
+          <p class="venue-full">Under review at ACL Rolling Review</p>
+          <p class="summary"><b>TL;DR:</b> Nested self-play loops let orchestration agents internalize skills, then withdraw them for zero-skill deployment.</p>
           <div class="meta">
-            <span class="venue">Under review at ACL Rolling Review</span>
             <a class="pill" href="https://arxiv.org/abs/2610.22740">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
               arXiv:2610.22740</a>
