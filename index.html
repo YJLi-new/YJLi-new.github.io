@@ -47,7 +47,7 @@
     background: rgba(250, 250, 250, .88); backdrop-filter: saturate(160%) blur(8px);
     border-bottom: 1px solid var(--color-border);
   }
-  .nav-inner { max-width: 820px; margin: 0 auto; padding: 0 var(--space-3); height: 60px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 var(--space-3); height: 60px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
   .brand { font: 700 18px/1 var(--font-heading); color: var(--color-foreground); text-decoration: none; letter-spacing: -.01em; }
   .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-1); overflow-x: auto; scrollbar-width: none; }
   .nav ul::-webkit-scrollbar { display: none; }
@@ -57,7 +57,7 @@
   }
   .nav ul a:hover { color: var(--color-foreground); background: var(--color-muted); }
 
-  main { max-width: 820px; margin: 0 auto; padding: 0 var(--space-3) var(--space-7); }
+  main { max-width: 960px; margin: 0 auto; padding: 0 var(--space-3) var(--space-7); }
   section { padding-top: var(--space-6); }
   h2 {
     font: 600 13px/1 var(--font-heading); letter-spacing: .14em; text-transform: uppercase;
@@ -69,7 +69,7 @@
   .hero { padding-top: var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
   .hero h1 { font: 700 clamp(40px, 7vw, 60px)/1.02 var(--font-heading); letter-spacing: -.03em; margin: 0; }
   .role { margin: var(--space-2) 0 0; font-size: 17px; color: var(--color-secondary); }
-  .bio { font-size: 18px; line-height: 1.7; margin: 0; max-width: 68ch; color: var(--color-primary); }
+  .bio { font-size: 18px; line-height: 1.7; margin: 0; max-width: 90ch; color: var(--color-primary); }
   .bio strong { font-weight: 600; }
   .links { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
   .btn {
@@ -123,7 +123,13 @@
 
   code { font: 500 .9em/1 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--color-muted); padding: 2px 5px; border-radius: 4px; }
 
-  footer { max-width: 820px; margin: 0 auto; padding: var(--space-4) var(--space-3) var(--space-5); border-top: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted-foreground); }
+  .pub { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: var(--space-4); align-items: center; }
+  .pub-fig { display: block; margin: 0; border: 1px solid var(--color-border); border-radius: 8px; overflow: hidden; background: #fff; cursor: zoom-in; transition: border-color .2s var(--ease); }
+  .pub-fig:hover { border-color: var(--color-primary); }
+  .pub-fig img { display: block; width: 100%; height: auto; }
+  @media (max-width: 860px) { .pub { grid-template-columns: 1fr; } }
+
+  footer { max-width: 960px; margin: 0 auto; padding: var(--space-4) var(--space-3) var(--space-5); border-top: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted-foreground); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -200,39 +206,48 @@
   <section id="publications" aria-labelledby="pub-h">
     <h2 id="pub-h">Publications</h2>
     <div class="list">
-      <article class="card">
-        <h3>DecoupAttn: Decoupled Sparse Attention for Training-Free Acceleration of Video Diffusion</h3>
-        <p class="authors"><b>Yanjin Li</b>, Bingbing Qiu, Qiang Huang, Rui Qian, Jian Wang, Mingda Zhang</p>
-        <p class="summary">Semantic clusters compensate every key, and exact attention corrects their error on blocks fixed offline. Best PSNR on 9 of 10 video-generation, controlled-generation, and neural-rendering models, and up to 1.65&times; faster than dense attention.</p>
-        <div class="meta">
-          <span class="tag">First author</span>
-          <span class="venue">In submission to CVPR 2027</span>
-          <a class="pill" href="https://www.alphaxiv.org/abs/2611.decoupattn-sparse-attention">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
-            alphaXiv</a>
+      <article class="card pub">
+        <div>
+          <h3>DecoupAttn: Decoupled Sparse Attention for Training-Free Acceleration of Video Diffusion</h3>
+          <p class="authors"><b>Yanjin Li</b>, Bingbing Qiu, Qiang Huang, Rui Qian, Jian Wang, Mingda Zhang</p>
+          <p class="summary">Semantic clusters compensate every key, and exact attention corrects their error on blocks fixed offline. Best PSNR on 9 of 10 video-generation, controlled-generation, and neural-rendering models, and up to 1.65&times; faster than dense attention.</p>
+          <div class="meta">
+            <span class="tag">First author</span>
+            <span class="venue">In submission to CVPR 2027</span>
+            <a class="pill" href="https://www.alphaxiv.org/abs/2611.decoupattn-sparse-attention">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
+              alphaXiv</a>
+          </div>
         </div>
+        <a class="pub-fig" href="figs/decoupattn.webp" aria-label="Open the DecoupAttn method overview figure at full size"><img src="figs/decoupattn.webp" width="1600" height="587" loading="lazy" decoding="async" alt="DecoupAttn method overview"></a>
       </article>
-      <article class="card">
-        <h3>R&sup2; Flow: Recursive Self-Improvement via Recursive Skill Evolution</h3>
-        <p class="authors">Mingda Zhang, Qiang Huang, <b>Yanjin Li</b>, Zijia Wang, Qika Lin, Xiaoying Tang, Tiesunlong Shen</p>
-        <p class="summary">Joins policy learning and skill updates in LLM agents through flow-based training and verified skill updates. State of the art on all 12 benchmarks.</p>
-        <div class="meta">
-          <span class="venue">Under review at ICLR 2027</span>
-          <a class="pill" href="https://arxiv.org/abs/2609.33867">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
-            arXiv:2609.33867</a>
+      <article class="card pub">
+        <div>
+          <h3>R&sup2; Flow: Recursive Self-Improvement via Recursive Skill Evolution</h3>
+          <p class="authors">Mingda Zhang, Qiang Huang, <b>Yanjin Li</b>, Zijia Wang, Qika Lin, Xiaoying Tang, Tiesunlong Shen</p>
+          <p class="summary">Joins policy learning and skill updates in LLM agents through flow-based training and verified skill updates. State of the art on all 12 benchmarks.</p>
+          <div class="meta">
+            <span class="venue">Under review at ICLR 2027</span>
+            <a class="pill" href="https://arxiv.org/abs/2609.33867">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
+              arXiv:2609.33867</a>
+          </div>
         </div>
+        <a class="pub-fig" href="figs/r2flow.webp" aria-label="Open the R² Flow framework overview figure at full size"><img src="figs/r2flow.webp" width="1600" height="952" loading="lazy" decoding="async" alt="R² Flow framework overview"></a>
       </article>
-      <article class="card">
-        <h3>R&sup2;Orch: Recursive Self-Improvement for Agent Orchestration via Self-Play within a Skill-Internalization Loop</h3>
-        <p class="authors">Mingda Zhang, Yun Huang, Qiang Huang, <b>Yanjin Li</b>, Rui Qian, Qichao Zhao, Tiesunlong Shen, Na Zhao, Jian Wang, Xiaoying Tang</p>
-        <p class="summary">Nested self-play loops let orchestration agents internalize skills, then withdraw them for zero-skill deployment.</p>
-        <div class="meta">
-          <span class="venue">Under review at ACL Rolling Review</span>
-          <a class="pill" href="https://arxiv.org/abs/2610.22740">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
-            arXiv:2610.22740</a>
+      <article class="card pub">
+        <div>
+          <h3>R&sup2;Orch: Recursive Self-Improvement for Agent Orchestration via Self-Play within a Skill-Internalization Loop</h3>
+          <p class="authors">Mingda Zhang, Yun Huang, Qiang Huang, <b>Yanjin Li</b>, Rui Qian, Qichao Zhao, Tiesunlong Shen, Na Zhao, Jian Wang, Xiaoying Tang</p>
+          <p class="summary">Nested self-play loops let orchestration agents internalize skills, then withdraw them for zero-skill deployment.</p>
+          <div class="meta">
+            <span class="venue">Under review at ACL Rolling Review</span>
+            <a class="pill" href="https://arxiv.org/abs/2610.22740">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2"/></svg>
+              arXiv:2610.22740</a>
+          </div>
         </div>
+        <a class="pub-fig" href="figs/r2orch.webp" aria-label="Open the R²Orch method overview figure at full size"><img src="figs/r2orch.webp" width="1600" height="833" loading="lazy" decoding="async" alt="R²Orch method overview"></a>
       </article>
     </div>
   </section>
