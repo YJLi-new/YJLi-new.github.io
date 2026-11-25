@@ -174,27 +174,48 @@
   .venue-full { margin: 4px 0 0; font-size: 14px; font-style: italic; color: var(--color-muted-foreground); }
   .summary b { font-weight: 600; }
 
-  /* theme toggle */
+  /* theme toggle: vertical two-position slider (top = light, bottom = dark) */
   .theme-toggle {
+    --track-w: 34px; --track-h: 68px; --knob: 26px; --pad: 3px;
     position: fixed; left: 16px; top: 50%; transform: translateY(-50%); z-index: 15;
-    width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
-    padding: 0; border: 1px solid var(--color-border); border-radius: 999px; cursor: pointer;
-    background: var(--color-card); color: var(--color-primary);
-    box-shadow: var(--color-card-shadow);
-    transition: border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease);
+    width: var(--track-w); height: var(--track-h); padding: 0; margin: 0;
+    border: 1px solid var(--color-border); border-radius: 999px; cursor: pointer;
+    background: var(--color-muted); color: var(--color-muted-foreground);
+    box-shadow: var(--color-card-shadow); touch-action: none; -webkit-tap-highlight-color: transparent;
+    transition: border-color .2s var(--ease), background .2s var(--ease);
   }
-  .theme-toggle:hover { border-color: var(--color-primary); color: var(--color-foreground); }
-  .theme-toggle svg { width: 20px; height: 20px; }
-  .theme-toggle .icon-sun { display: none; }
-  :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-  :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+  .theme-toggle:hover { border-color: var(--color-muted-foreground); }
+  .theme-toggle .slot {
+    position: absolute; left: 50%; width: var(--knob); height: var(--knob); margin-left: calc(var(--knob) / -2);
+    display: flex; align-items: center; justify-content: center; pointer-events: none;
+  }
+  .theme-toggle .slot-top { top: var(--pad); }
+  .theme-toggle .slot-bottom { bottom: var(--pad); }
+  .theme-toggle .slot svg { width: 14px; height: 14px; opacity: .55; }
+  .theme-toggle .knob {
+    position: absolute; left: 50%; top: var(--pad); width: var(--knob); height: var(--knob); margin-left: calc(var(--knob) / -2);
+    border-radius: 50%; background: var(--color-card); color: var(--color-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .25); pointer-events: none;
+    display: flex; align-items: center; justify-content: center;
+    transform: translateY(var(--knob-y, 0px));
+    transition: transform .25s var(--ease), background .2s var(--ease), color .2s var(--ease);
+  }
+  .theme-toggle.dragging .knob { transition: none; }
+  .theme-toggle .knob svg { width: 15px; height: 15px; position: absolute; transition: opacity .2s var(--ease); }
+  .theme-toggle .knob .icon-moon { opacity: 0; }
+  :root[data-theme="dark"] .theme-toggle .knob { --knob-y: calc(var(--track-h) - 2px - var(--knob) - 2 * var(--pad)); }
+  :root[data-theme="dark"] .theme-toggle .knob .icon-sun { opacity: 0; }
+  :root[data-theme="dark"] .theme-toggle .knob .icon-moon { opacity: 1; }
   @media (max-width: 1060px) {
-    .theme-toggle { left: 0; width: 36px; height: 40px; border-left: 0; border-radius: 0 999px 999px 0; }
-    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle { left: 0; border-left: 0; border-radius: 0 999px 999px 0; }
   }
   @media (max-width: 640px) {
-    .theme-toggle { width: 26px; height: 38px; }
-    .theme-toggle svg { width: 15px; height: 15px; margin-left: -3px; }
+    .theme-toggle { --track-w: 26px; --track-h: 54px; --knob: 20px; --pad: 3px; }
+    .theme-toggle .slot svg { width: 11px; height: 11px; }
+    .theme-toggle .knob svg { width: 12px; height: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle .knob { transition: none; }
   }
 
   footer { max-width: 960px; margin: 0 auto; padding: var(--space-4) var(--space-3) var(--space-5); border-top: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted-foreground); }
@@ -217,9 +238,10 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+<button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Slide down for dark mode">
+  <span class="slot slot-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+  <span class="slot slot-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
+  <span class="knob"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
 </button>
 
 <header class="nav">
@@ -417,17 +439,58 @@
   (function () {
     var root = document.documentElement;
     var btn = document.querySelector(".theme-toggle");
+    var knob = btn.querySelector(".knob");
+    function isDark() { return root.getAttribute("data-theme") === "dark"; }
     function sync() {
-      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      var label = "Switch to " + next + " mode";
-      btn.setAttribute("aria-label", label);
-      btn.setAttribute("title", label);
+      btn.setAttribute("aria-checked", isDark() ? "true" : "false");
+      btn.setAttribute("title", isDark() ? "Slide up for light mode" : "Slide down for dark mode");
     }
-    btn.addEventListener("click", function () {
-      var theme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    function setTheme(theme) {
       root.setAttribute("data-theme", theme);
       try { localStorage.setItem("theme", theme); } catch (e) {}
       sync();
+    }
+    function travel() {
+      var cs = getComputedStyle(btn);
+      return btn.clientHeight - knob.offsetHeight - 2 * parseFloat(cs.getPropertyValue("--pad"));
+    }
+    var drag = null, suppressClick = false;
+    btn.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0) return;
+      drag = { y: e.clientY, start: isDark() ? travel() : 0, moved: false };
+      btn.setPointerCapture(e.pointerId);
+    });
+    btn.addEventListener("pointermove", function (e) {
+      if (!drag) return;
+      var dy = e.clientY - drag.y;
+      if (!drag.moved && Math.abs(dy) < 3) return;
+      drag.moved = true;
+      btn.classList.add("dragging");
+      var y = Math.max(0, Math.min(travel(), drag.start + dy));
+      knob.style.setProperty("--knob-y", y + "px");
+    });
+    function endDrag(e) {
+      if (!drag) return;
+      if (drag.moved) {
+        var y = Math.max(0, Math.min(travel(), drag.start + (e.clientY - drag.y)));
+        btn.classList.remove("dragging");
+        knob.style.removeProperty("--knob-y");
+        setTheme(y > travel() / 2 ? "dark" : "light");
+        suppressClick = true;
+      }
+      drag = null;
+    }
+    btn.addEventListener("pointerup", endDrag);
+    btn.addEventListener("pointercancel", function () {
+      btn.classList.remove("dragging"); knob.style.removeProperty("--knob-y"); drag = null;
+    });
+    btn.addEventListener("click", function () {
+      if (suppressClick) { suppressClick = false; return; }
+      setTheme(isDark() ? "light" : "dark");
+    });
+    btn.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); setTheme("dark"); }
+      if (e.key === "ArrowUp") { e.preventDefault(); setTheme("light"); }
     });
     sync();
   })();
